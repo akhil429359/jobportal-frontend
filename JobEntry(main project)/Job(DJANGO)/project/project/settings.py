@@ -25,13 +25,13 @@ SECRET_KEY = 'django-insecure-r2*zj=ib3be4ub4o!tpdnd#shw-l(_!ubgli(e=+$2872hwa6m
 # SECURITY WARNING: don't run with debug turned on in production!
 AUTH_USER_MODEL = "Accounts.User"
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.onrender.com']
 
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # React dev server
+    "http://localhost:5173", 
 ]
 
 CORS_ALLOW_CREDENTIALS = True
