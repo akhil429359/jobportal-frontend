@@ -29,12 +29,7 @@ class JobPostsViewSet(viewsets.ModelViewSet):
 
 
     def perform_create(self, serializer):
-        try:
-            profile = UserProfile.objects.get(user=self.request.user)
-        except UserProfile.DoesNotExist:
-            raise PermissionDenied("You must complete your profile before posting jobs.")
-
-        if profile.role != 'employer':
+        if self.request.user.role != 'employer':
             raise PermissionDenied("Only employers can post jobs.")
 
         # ✅ Ensure questions is always a list (not null)
@@ -80,7 +75,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
         queryset = Application.objects.all()
 
         # ✅ Role-based filtering
-        if profile.role == "employer":
+        if user.role == "employer":
             queryset = queryset.filter(job_id__user=user)
         else:  # job seeker
             queryset = queryset.filter(applicant_id=user)

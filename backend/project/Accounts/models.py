@@ -28,10 +28,6 @@ class User(AbstractUser):
 
 
 class UserProfile(models.Model):
-    ROLE_CHOICES = [
-        ('jobseeker', 'Job Seeker'),
-        ('employer', 'Employer'),
-    ]
 
     user = models.OneToOneField("User", on_delete=models.CASCADE)
     profile_image = models.ImageField(upload_to="profile_images/", null=True, blank=True)
@@ -40,7 +36,6 @@ class UserProfile(models.Model):
     experience = models.TextField()
     resume = models.FileField(upload_to="resumes/", null=True, blank=True)
     about_me = models.TextField()
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='jobseeker')
 
     def __str__(self):
         return f"{self.user.username} - {self.role}"
