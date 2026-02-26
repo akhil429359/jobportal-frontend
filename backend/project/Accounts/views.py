@@ -112,13 +112,13 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         return UserProfile.objects.filter(user=user)  
 
 
-def perform_create(self, serializer):
-    user = self.request.user
+    def perform_create(self, serializer):
+        user = self.request.user
 
-    if UserProfile.objects.filter(user=user).exists():
-        raise PermissionDenied("Profile already exists.")
+        if UserProfile.objects.filter(user=user).exists():
+            raise PermissionDenied("Profile already exists.")
 
-    serializer.save(user=user)
+        serializer.save(user=user)
 
 class NotificationViewSet(viewsets.ModelViewSet):
     serializer_class = NotificationSerializer
