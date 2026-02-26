@@ -8,9 +8,9 @@ function UserNavbar() {
   const [role, setRole] = useState("");
 
   useEffect(() => {
-    const fetchProfile = async () => {
+    const fetchUser = async () => {
       try {
-        const res = await api.get("user-profiles/");
+        const res = await api.get("users/");
         if (res.data.length > 0) {
           setRole(res.data[0].role);
         }
@@ -18,7 +18,7 @@ function UserNavbar() {
         console.error(err);
       }
     };
-    fetchProfile();
+    fetchUser();
   }, []);
 
   const handleLogout = () => {
