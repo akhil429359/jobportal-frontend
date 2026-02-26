@@ -8,10 +8,18 @@ const MyProfilePage = () => {
   const [showForm, setShowForm] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
   const [formData, setFormData] = useState({ skills: "", education: "", experience: "", about_me: "", resume: null, profile_image: null });
-
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await api.get("users/");
+        setUser(response.data[0]); 
+      } catch (err) {
+        console.error("Error fetching user:", err);
+      }
+    };
     const fetchProfile = async () => {
       try {
         const response = await api.get("user-profiles/");
@@ -39,21 +47,20 @@ const MyProfilePage = () => {
   };
 
   const handleSwitchRole = async () => {
-    if (!profile) return;
-    const newRole = profile.role.toLowerCase() === "jobseeker" ? "employer" : "jobseeker";
+    if (!user) return;
+
+    const newRole =
+      user.role.toLowerCase() === "jobseeker"
+        ? "employer"
+        : "jobseeker";
 
     try {
-      const form = new FormData();
-      form.append("role", newRole);
+      const response = await api.post("users/switch_role/", {
+        role: newRole,
+      });
 
-      const response = await api.patch(
-        `user-profiles/${profile.id}/`,
-        form,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
-
-      setProfile(response.data);
-      alert(`Switched role to ${newRole.charAt(0).toUpperCase() + newRole.slice(1)}!`);
+      setUser({ ...user, role: response.data.role });
+      alert(`Switched role to ${newRole}!`);
       navigate(0);
     } catch (err) {
       console.error("Error switching role:", err);
@@ -132,7 +139,7 @@ const MyProfilePage = () => {
           )}
           <button style={{ ...styles.button, width: "100%", marginTop: "20px", backgroundColor: "#388E3C" }} onClick={() => navigate(`/edit-profile/${profile.id}`)}>Edit Profile</button>
           <button style={{ ...styles.button, width: "100%", marginTop: "10px", backgroundColor: "#0b0ff7ff" }} onClick={handleSwitchRole}>
-            {profile.role.toLowerCase() === "jobseeker" ? "Switch to Employer" : "Switch to Jobseeker"}
+            {(user?.role || "").toLowerCase() === "jobseeker" ? "Switch to Employer" : "Switch to Jobseeker"}
           </button>
         </div>
       </div>
