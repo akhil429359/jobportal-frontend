@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/login" replace />;
   }
 
-  return children; //  just return children, no navbar/footer here
+  return children; 
 };
 
 export default ProtectedRoute;

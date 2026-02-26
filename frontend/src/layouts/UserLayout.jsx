@@ -8,11 +8,11 @@ import BackButton from "../components/BackButton";
 const UserLayout = () => {
   return (
     <>
-      < UserNavbar/>   {/* 👈 Different navbar for logged-in users */}
+      < UserNavbar/>   
       <BackButton />
       <main style={{ padding: "20px" }}>
 
-        <Outlet />     {/* 👈 This is where child pages (UserHome, Profile, etc.) render */}
+        <Outlet /> 
       </main>
       <UserFooter/>
     </>
