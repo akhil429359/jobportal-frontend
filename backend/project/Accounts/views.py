@@ -97,7 +97,17 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    @action(detail=False, methods=['post'], permission_classes=[IsAuthenticated])
+    def switch_role(self, request):
+        user = request.user
+        new_role = request.data.get("role")
 
+        if new_role not in ['jobseeker', 'employer']:
+            return Response({"error": "Invalid role"}, status=400)
+
+        user.role = new_role
+        user.save()
+        return Response({"role": user.role})
 
 class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
@@ -119,7 +129,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
             raise PermissionDenied("Profile already exists.")
 
         serializer.save(user=user)
-
+    
 class NotificationViewSet(viewsets.ModelViewSet):
     serializer_class = NotificationSerializer
     permission_classes = [IsAuthenticated]
