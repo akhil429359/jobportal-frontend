@@ -31,7 +31,7 @@ ALLOWED_HOSTS = ['.onrender.com']
 
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173", 
+    "https://jobportal-frontend-1-4q5e.onrender.com/", 
 ]
 
 CORS_ALLOW_CREDENTIALS = True
