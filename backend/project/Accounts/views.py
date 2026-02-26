@@ -10,6 +10,8 @@ from django.db.models import Q
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.core.mail import send_mail
 from django.conf import settings
+from rest_framework.exceptions import PermissionDenied
+
 
 class ContactMessageCreateView(generics.CreateAPIView):
     queryset = ContactMessage.objects.all()
@@ -109,12 +111,14 @@ class UserProfileViewSet(viewsets.ModelViewSet):
             return UserProfile.objects.all()  
         return UserProfile.objects.filter(user=user)  
 
-    def perform_create(self, serializer):
-        user = self.request.user
-        if user.is_staff and 'user' in self.request.data:
-            serializer.save(user=User.objects.get(id=self.request.data['user']))
-        else:
-            serializer.save(user=user)
+
+def perform_create(self, serializer):
+    user = self.request.user
+
+    if UserProfile.objects.filter(user=user).exists():
+        raise PermissionDenied("Profile already exists.")
+
+    serializer.save(user=user)
 
 class NotificationViewSet(viewsets.ModelViewSet):
     serializer_class = NotificationSerializer

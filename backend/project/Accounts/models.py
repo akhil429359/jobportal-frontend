@@ -31,11 +31,11 @@ class UserProfile(models.Model):
 
     user = models.OneToOneField("User", on_delete=models.CASCADE)
     profile_image = models.ImageField(upload_to="profile_images/", null=True, blank=True)
-    skills = models.TextField()
-    education = models.TextField()
-    experience = models.TextField()
+    skills = models.TextField(blank=True, default="")
+    education = models.TextField(blank=True, default="")
+    experience = models.TextField(blank=True, default="")
+    about_me = models.TextField(blank=True, default="")
     resume = models.FileField(upload_to="resumes/", null=True, blank=True)
-    about_me = models.TextField()
 
     def __str__(self):
         return f"{self.user.username} - {self.role}"
