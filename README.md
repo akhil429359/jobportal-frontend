@@ -122,3 +122,17 @@ git clone https://github.com/akhil429359/jobportal-frontend.git
 cd frontend
 npm install
 npm run dev
+
+## 📷 Screenshots
+
+### 🏠 Homepage
+![Homepage](images/Homepage.png)
+
+### 🔐 Login Page
+![Login](images/Loginpage.png)
+
+### 💼 Job Listings
+![Jobs](images/JobCreatingPage.png)
+
+### 💬 Chat Interface
+![Chat](images/OneToOneChatPage.png)
