@@ -115,6 +115,7 @@ cd backend
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
+```
 
 ### Frontend Setup
 ```bash
@@ -122,6 +123,7 @@ git clone https://github.com/akhil429359/jobportal-frontend.git
 cd frontend
 npm install
 npm run dev
+```
 
 ## 📷 Screenshots
 
