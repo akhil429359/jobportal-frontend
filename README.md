@@ -137,4 +137,4 @@ npm run dev
 ![Jobs](images/JobCreatingPage.png)
 
 ### 💬 Chat Interface
-![Chat](images/OneToOneChatPage.png)
+![Chat](images/OneToOneChatPAge.png)
